@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import inicializar_banco
-from app.routers import auth, jogo, motor_matematico
+from app.routers import auth_router, jogo_router, motor_router
 
 app = FastAPI(
     title="Plataforma Matematicalização API",
@@ -24,9 +24,9 @@ def on_startup():
     inicializar_banco()
 
 # Vínculo das rotas modulares
-app.include_router(auth.router)
-app.include_router(jogo.router)
-app.include_router(motor_matematico.router)
+app.include_router(auth_router, prefix="/auth", tags=["Autenticação"])
+app.include_router(jogo_router, prefix="/jogo", tags=["Partidas"])
+app.include_router(motor_router, prefix="/motor", tags=["Motor Matemático"])
 
 @app.get("/")
 def check_status():
