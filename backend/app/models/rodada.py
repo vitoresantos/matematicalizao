@@ -5,7 +5,7 @@ from sqlmodel import SQLModel, Field, Relationship
 if TYPE_CHECKING:
     from .partida import Partida
 
-class HistoricoRodada(SQLModel, table=True):
+class Rodada(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     partida_id: str = Field(foreign_key="partida.id")
     numero_rodada: int
