@@ -3,7 +3,7 @@ from sqlmodel import Session, select
 from app.database import obter_sessao
 from app.models.partida import Partida
 from app.models.grupo import Grupo
-from app.models.rodada import HistoricoRodada
+from app.models.rodada import Rodada
 from app.core.formulas import calcular_rendimento
 
 router = APIRouter(prefix="/api/motor", tags=["Motor de Cálculo"])
@@ -21,7 +21,7 @@ def processar_turno_grupo(payload: dict, db: Session = Depends(obter_sessao)):
         raise HTTPException(status_code=404, detail="Partida ou Grupo não localizados.")
         
     # Salva o histórico operacional do lançamento da mesa
-    historico = HistoricoRodada(
+    historico = Rodada(
         partida_id=partida_id,
         numero_rodada=partida.rodada_atual,
         grupo_id=grupo_id,
