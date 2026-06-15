@@ -5,6 +5,7 @@ from sqlmodel import SQLModel, Field, Relationship
 if TYPE_CHECKING:
     from .usuario import Usuario
     from .grupo import Grupo
+    from .rodada import Rodada
 
 class Partida(SQLModel, table=True):
     id: str = Field(primary_key=True, index=True) # ID Único digitado pelo professor
@@ -16,5 +17,5 @@ class Partida(SQLModel, table=True):
     
     professor_id: int = Field(foreign_key="usuario.id")
     professor: "Usuario" = Relationship(back_populates="partidas")
-    
+    rodadas: List["Rodada"] = Relationship(back_populates="partida", cascade_delete=True)
     grupos: List["Grupo"] = Relationship(back_populates="partida", cascade_delete=True)
