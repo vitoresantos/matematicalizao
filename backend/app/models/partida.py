@@ -1,6 +1,11 @@
 from typing import Optional, List
 from sqlmodel import SQLModel, Field, Relationship
 
+# Se o Python reclamar de nome não definido, isso injeta o Usuário na checagem de tipos
+if TYPE_CHECKING:
+    from .usuario import Usuario
+    from .grupo import Grupo
+
 class Partida(SQLModel, table=True):
     id: str = Field(primary_key=True, index=True) # ID Único digitado pelo professor
     turma: str
