@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Optional, List, TYPE_CHECKING
 from sqlmodel import SQLModel, Field, Relationship
 
 # Se o Python reclamar de nome não definido, isso injeta o Usuário na checagem de tipos
