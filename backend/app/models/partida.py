@@ -10,6 +10,6 @@ class Partida(SQLModel, table=True):
     rodada_atual: int = Field(default=1)
     
     professor_id: int = Field(foreign_key="usuario.id")
-    professor: Usuario = Relationship(back_populates="partidas")
+    professor: "Usuario" = Relationship(back_populates="partidas")
     
     grupos: List["Grupo"] = Relationship(back_populates="partida", cascade_delete=True)
