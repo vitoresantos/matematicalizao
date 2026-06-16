@@ -17,10 +17,11 @@ export default function HomeInstitucional() {
       
       {/* 🧭 1. Menu de Navegação Superior (Navbar) */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center w-full">
+        {/* Adicionamos a classe navbar-grid-container aqui */}
+        <div className="max-w-6xl mx-auto px-4 py-4 navbar-grid-container">
           
           {/* 1. LADO ESQUERDO: Logo da Instituição */}
-          <div className="flex items-center select-none cursor-pointer" onClick={() => navigate('/')}>
+          <div className="navbar-logo-wrapper" onClick={() => navigate('/')}>
             <img 
               src="/arquivos/logo.png" 
               alt="Logo Matematicalização" 
@@ -28,7 +29,7 @@ export default function HomeInstitucional() {
             />
           </div>
 
-          {/* 2. CENTRO: Links do Menu (Fica exatamente no meio da tela no PC) */}
+          {/* 2. CENTRO: Links do Menu */}
           <div className="hidden lg:flex navbar-links-center">
             <a href="#inicio" className="navbar-link">Início</a>
             <a href="#sobre" className="navbar-link">Sobre</a>
@@ -38,7 +39,7 @@ export default function HomeInstitucional() {
           </div>
 
           {/* 3. LADO DIREITO: Botão de Login / Cadastro */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:block navbar-button-wrapper">
             <button 
               onClick={aoNavegarParaAuth}
               className="navbar-btn-primary"
@@ -47,7 +48,7 @@ export default function HomeInstitucional() {
             </button>
           </div>
 
-          {/* 4. BOTÃO HAMBÚRGUER: Aparece APENAS no celular/tablet */}
+          {/* 4. BOTÃO HAMBÚRGUER: Celular/Tablet */}
           <button 
             className="mobile-menu-toggle focus:outline-none"
             onClick={() => setMenuAberto(!menuAberto)}
@@ -56,7 +57,7 @@ export default function HomeInstitucional() {
           </button>
         </div>
 
-        {/* 5. MENU RETRÁTIL MOBILE: Abre apenas no celular se clicado */}
+        {/* 5. MENU RETRÁTIL MOBILE */}
         {menuAberto && (
           <div className="mobile-menu-dropdown">
             <a href="#inicio" className="navbar-link" onClick={() => setMenuAberto(false)}>Início</a>
