@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { validarCPF } from './services/validators'; // Importa a função acima
+import { validarCPF } from './validators'; // Importa a função acima
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true); // Alterna entre Login e Cadastro
