@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { validarCPF } from './validators'; // Importa a função acima
+import { useNavigate } from 'react-router-dom'; // 🚀 1. Importa o navegador de rotas
+import { validarCPF } from './validators'; 
 
 export default function Auth() {
-  const [isLogin, setIsLogin] = useState(true); // Alterna entre Login e Cadastro
+  const navigate = useNavigate(); // 🚀 2. Inicializa o hook de navegação
+  const [isLogin, setIsLogin] = useState(true); 
   
   // Estados dos campos
   const [email, setEmail] = useState('');
@@ -27,33 +29,44 @@ export default function Auth() {
     }
     
     // Se terminou de digitar os 11 números, valida matematicamente
-    if (e.target.value.replace(/\D/g, '').length === 11) {
-      setCpfInvalido(!validarCPF(e.target.value));
+    const apenasNumeros = e.target.value.replace(/\D/g, '');
+    if (apenasNumeros.length === 11) {
+      setCpfInvalido(!validarCPF(apenasNumeros));
     } else {
       setCpfInvalido(false);
     }
   };
 
+  // 🚀 3. SUBMISSÃO COM REDIRECIONAMENTO DE TELA
   const handleSubmit = (e) => {
     e.preventDefault();
     setErroGeral('');
 
     if (isLogin) {
-      // LÓGICA DE LOGIN
+      // LÓGICA DE LOGIN SIMULADA
       console.log("Executando login com:", { email, senha });
-      // Aqui chamamos o backend: axios.post('/api/login', { email, senha })
+      
+      // TODO INTEGRACAO: Chamar axios.post('/api/login', { email, senha })
+      
+      navigate('/jogo'); // Envia para a área do jogo
     } else {
-      // LÓGICA DE CADASTRO
-      if (cpfInvalido || !cpf) {
-        setErroGeral('Por favor, insira um CPF válido para prosseguir.');
+      // LÓGICA DE CADASTRO SIMULADA
+      const apenasNumeros = cpf.replace(/\D/g, '');
+      if (apenasNumeros.length !== 11 || cpfInvalido) {
+        setErroGeral('Por favor, insira um CPF válido com 11 dígitos para prosseguir.');
         return;
       }
-      console.log("Executando cadastro de:", { nomeCompleto, cpf, escola, uf, email, senha });
-      // Aqui chamamos o backend: axios.post('/api/cadastro', { ... })
+
+      console.log("Executando cadastro de:", { nomeCompleto, cpf: apenasNumeros, escola, uf, email, senha });
+      
+      // TODO INTEGRACAO: Chamar axios.post('/api/cadastro', { ... })
+      
+      alert("Cadastro concluído com sucesso!");
+      navigate('/jogo'); // Após cadastrar, o professor entra direto no jogo
     }
   };
 
-  // Lista simples de UFs para o seletor dropdown
+  // Lista de UFs para o seletor dropdown
   const UFs = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
 
   return (
@@ -95,6 +108,7 @@ export default function Auth() {
                   <input
                     type="text" required
                     placeholder="000.000.000-00"
+                    maxLength={14}
                     className={`mt-1 w-full p-2.5 border rounded-lg bg-gray-50 focus:ring-2 outline-none text-sm ${
                       cpfInvalido ? 'border-red-500 focus:ring-red-500' : 'focus:ring-blue-500'
                     }`}
@@ -147,15 +161,10 @@ export default function Auth() {
             />
           </div>
 
-          {/* Botão de Envio */}
+          {/* Botão de Envio Corrigido */}
           <button
             type="submit"
-            disabled={!isLogin && cpfInvalido}
-            className={`w-full py-3 rounded-lg text-white font-bold text-sm transition-all mt-2 ${
-              !isLogin && cpfInvalido 
-                ? 'bg-gray-400 cursor-not-allowed' 
-                : 'bg-blue-600 hover:bg-blue-700 shadow-md'
-            }`}
+            className="w-full py-3 rounded-lg text-white font-bold text-sm transition-all shadow-md mt-2 bg-blue-600 hover:bg-blue-700"
           >
             {isLogin ? 'Entrar no Painel' : 'Concluir Cadastro'}
           </button>
@@ -166,7 +175,7 @@ export default function Auth() {
           <p className="text-gray-600">
             {isLogin ? 'Não tem uma conta?' : 'Já possui uma conta?'}
             <button
-              onClick={() => { setIsLogin(!isLogin); setErroGeral(''); }}
+              onClick={() => { setIsLogin(!isLogin); setErroGeral(''); setCpfInvalido(false); }}
               className="text-blue-600 font-bold ml-1 hover:underline focus:outline-none"
             >
               {isLogin ? 'Cadastre-se aqui' : 'Faça login'}

@@ -145,11 +145,6 @@ export default function HomeInstitucional() {
         </div>
       </section>
 
-      {/* 💻 7. Footer */}
-      <footer className="bg-gray-950 p-6 text-center text-[10px] text-gray-500 border-t border-gray-900">
-        &copy; {new Date().getFullYear()} Matematicalização. Focado no aprimoramento do ensino matemático. Todos os direitos reservados.
-      </footer>
-
     </div>
   );
 }

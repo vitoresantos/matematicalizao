@@ -40,7 +40,7 @@ html, body {
     align-items: center;
     gap: 2rem; /* Espaço interno entre os links (Início, Sobre...) */
     font-weight: 700;
-    font-size: 0.875rem;
+    font-size: 1rem;
   }
 
   .navbar-button-wrapper {
@@ -97,7 +97,7 @@ html, body {
 
 /* Estilização da Logo, Botões e Links permanecem iguais */
 .navbar-logo {
-  height: 60px;
+  height: 80px;
   width: auto;
   object-fit: contain;
   display: block;
@@ -116,7 +116,7 @@ html, body {
   background-color: #111827;
   color: #ffffff;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.6rem;
   padding: 0.625rem 1rem;
   border-radius: 0.5rem;
   transition: all 0.2s ease-in-out;
