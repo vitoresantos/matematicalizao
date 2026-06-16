@@ -1,73 +1,80 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // 🚀 1. Importa o navegador de rotas
-import { validarCPF } from './validators'; 
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // 🚀 Importa o Axios
 
 export default function Auth() {
-  const navigate = useNavigate(); // 🚀 2. Inicializa o hook de navegação
-  const [isLogin, setIsLogin] = useState(true); 
+  const navigate = useNavigate();
   
-  // Estados dos campos
+  // Seus estados atuais continuam aqui...
+  const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [nomeCompleto, setNomeCompleto] = useState('');
   const [cpf, setCpf] = useState('');
   const [escola, setEscola] = useState('');
   const [uf, setUf] = useState('');
-  
-  // Estados de erro e validação
-  const [cpfInvalido, setCpfInvalido] = useState(false);
   const [erroGeral, setErroGeral] = useState('');
+  const [carregando, setCarregando] = useState(false); // Novo estado para botão de loading
 
-  // Aplica máscara de CPF automaticamente enquanto o professor digita
-  const handleCpfChange = (e) => {
-    let value = e.target.value.replace(/\D/g, ''); // Mantém apenas números
-    if (value.length <= 11) {
-      value = value.replace(/(\d{3})(\d)/, '$1.$2');
-      value = value.replace(/(\d{3})(\d)/, '$1.$2');
-      value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-      setCpf(value);
-    }
-    
-    // Se terminou de digitar os 11 números, valida matematicamente
-    const apenasNumeros = e.target.value.replace(/\D/g, '');
-    if (apenasNumeros.length === 11) {
-      setCpfInvalido(!validarCPF(apenasNumeros));
-    } else {
-      setCpfInvalido(false);
-    }
-  };
+  // URL DB no Render)
+  const API_URL = 'https://matematicalizacao-backend.onrender.com';
 
-  // 🚀 3. SUBMISSÃO COM REDIRECIONAMENTO DE TELA
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErroGeral('');
+    setCarregando(true);
 
-    if (isLogin) {
-      // LÓGICA DE LOGIN SIMULADA
-      console.log("Executando login com:", { email, senha });
-      
-      // TODO INTEGRACAO: Chamar axios.post('/api/login', { email, senha })
-      
-      navigate('/dashboard'); // Envia para a área do Dashboard
-    } else {
-      // LÓGICA DE CADASTRO SIMULADA
-      const apenasNumeros = cpf.replace(/\D/g, '');
-      if (apenasNumeros.length !== 11 || cpfInvalido) {
-        setErroGeral('Por favor, insira um CPF válido com 11 dígitos para prosseguir.');
-        return;
+    try {
+      if (isLogin) {
+        // 🔒 CONEXÃO REAL: LOGIN
+        // O FastAPI usando OAuth2 espera os dados em formato "Form Data" (URL Encoded)
+        const params = new URLSearchParams();
+        params.append('username', email); // O backend lê o email no campo username
+        params.append('password', senha);
+
+        const resposta = await axios.post(`${API_URL}/login`, params, {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        });
+
+        // 💾 SALVA O TOKEN NO NAVEGADOR
+        // Guardamos a chave de acesso para usar nas outras telas (como JogoHome e Dashboard)
+        localStorage.setItem('token_usuario', resposta.data.access_token);
+        
+        // Redireciona com sucesso para o painel principal do professor
+        navigate('/dashboard');
+
+      } else {
+        // 🔒 CONEXÃO REAL: CADASTRO
+        const apenasNumerosCpf = cpf.replace(/\D/g, '');
+        if (apenasNumerosCpf.length !== 11) {
+          setErroGeral('Por favor, insira um CPF válido com 11 dígitos.');
+          setCarregando(false);
+          return;
+        }
+
+        await axios.post(`${API_URL}/cadastro`, {
+          nome: nomeCompleto,
+          cpf: apenasNumerosCpf,
+          escola: escola,
+          uf: uf,
+          email: email,
+          senha: senha
+        });
+
+        alert("Cadastro concluído com sucesso! Agora você já pode fazer o seu login.");
+        setIsLogin(true); // Muda a tela automaticamente para o modo de Login
+        setSenha(''); // Limpa a senha por segurança
       }
-
-      console.log("Executando cadastro de:", { nomeCompleto, cpf: apenasNumeros, escola, uf, email, senha });
-      
-      // TODO INTEGRACAO: Chamar axios.post('/api/cadastro', { ... })
-      
-      alert("Cadastro concluído com sucesso!");
-      navigate('/dashboard'); // Após cadastrar, o professor entra no Dashboard
+    } catch (error) {
+      console.error("Erro na autenticação:", error);
+      // Pega a mensagem exata de erro tratada que o FastAPI enviou no 'detail'
+      const mensagemErro = error.response?.data?.detail || 'Erro ao conectar com o servidor do jogo.';
+      setErroGeral(mensagemErro);
+    } finally {
+      setCarregando(false);
     }
   };
 
-  // Lista de UFs para o seletor dropdown
-  const UFs = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 p-4">

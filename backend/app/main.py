@@ -9,10 +9,10 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Configuração de CORS: Permite que o frontend da HostGator envie requisições com segurança
+# Configuração de CORS: Como está com ["*"], ele já aceita requisições da Vercel perfeitamente!
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Em produção, substitua pelo seu domínio: ["https://www.matematicalizacao.com.br"]
+    allow_origins=["*"], # Em produção, substitua pelo seu domínio oficial da Vercel/HostGator
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -24,7 +24,9 @@ def on_startup():
     inicializar_banco()
 
 # Vínculo das rotas modulares
-app.include_router(auth_router, prefix="/auth", tags=["Autenticação"])
+# 🟢 AJUSTADO: Mudamos o prefixo de "/auth" para "/api/v1/auth" para bater com o Axios do Frontend!
+app.include_router(auth_router, prefix="/api/v1/auth", tags=["Autenticação"])
+
 app.include_router(jogo_router, prefix="/jogo", tags=["Partidas"])
 app.include_router(motor_router, prefix="/motor", tags=["Motor Matemático"])
 
