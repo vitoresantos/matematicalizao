@@ -1,0 +1,13 @@
+/* Configurações básicas de reset visual */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background-color: #f3f4f6; /* um fundo cinza claro padrão */
+  color: #1f2937;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
