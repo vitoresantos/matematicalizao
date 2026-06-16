@@ -13,42 +13,61 @@ html, body {
 }
 
 /* ==========================================
-   🎨 SISTEMA DE CORES DO MENU (CUSTOMIZÁVEL)
+   🧭 ESTRUTURA DO MENU E ALINHAMENTO
    ========================================== */
 
-/* Cor padrão dos links e comportamento ao passar o mouse */
+/* Container dos links do desktop (Controla o espaçamento entre eles) */
+.navbar-links-container {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem; /* Aumente aqui (ex: 3rem) se quiser os links ainda mais separados */
+  font-weight: 600;
+  font-size: 0.875rem; /* text-sm */
+}
+
+/* Força os elementos do topo (Logo + Links) a ficarem na mesma linha */
+.navbar-left-side {
+  display: flex;
+  align-items: center;
+  gap: 4rem; /* Distância entre a imagem da Logo e o primeiro link do menu */
+}
+
+/* ==========================================
+   🎨 SISTEMA DE CORES DO MENU (CUSTOMIZÁVEL)
+   ========================================== */
 .navbar-link {
-  color: #4b5563; /* Cinza intermediário */
+  color: #4b5563;
+  text-decoration: none;
   transition: color 0.2s ease-in-out;
 }
 .navbar-link:hover, .navbar-link.active {
-  color: #2563eb; /* Azul de destaque (Altere aqui a cor ativa/hover) */
+  color: #2563eb; /* Cor do hover/ativo */
 }
 
-/* Marca/Destaque no texto da Logo */
 .brand-highlight {
-  color: #2563eb; /* Cor do "lização" na logo */
+  color: #2563eb;
 }
 
 /* Botão de Login/Cadastro Principal (Desktop) */
 .navbar-btn-primary {
-  background-color: #111827; /* Fundo do botão (padrão quase preto) */
+  background-color: #111827;
   color: #ffffff;
   font-weight: 700;
-  font-size: 0.75rem; /* text-xs */
-  padding: 0.625rem 1rem; /* py-2.5 px-4 */
-  border-radius: 0.5rem; /* rounded-lg */
+  font-size: 0.75rem;
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
   transition: all 0.2s ease-in-out;
   border: none;
   cursor: pointer;
+  white-space: nowrap; /* Impede que o texto do botão quebre em duas linhas */
 }
 .navbar-btn-primary:hover {
-  background-color: #1f2937; /* Cor do botão no Hover */
+  background-color: #1f2937;
 }
 
 /* Botão de Login dentro do Menu Mobile (Celular) */
 .navbar-btn-mobile {
-  background-color: #2563eb; /* Cor de fundo no mobile */
+  background-color: #2563eb;
   color: #ffffff;
   padding: 0.625rem;
   border-radius: 0.5rem;
@@ -58,6 +77,11 @@ html, body {
   border: none;
   cursor: pointer;
 }
-.navbar-btn-mobile:hover {
-  background-color: #1d4ed8;
+
+/* Configuração da imagem da Logo */
+.navbar-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
