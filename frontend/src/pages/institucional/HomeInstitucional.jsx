@@ -15,66 +15,6 @@ export default function HomeInstitucional() {
   return (
     <div className="min-h-screen bg-white text-gray-800 font-sans scroll-smooth">
       
-      {/* 🧭 1. Menu de Navegação Superior (Navbar) */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
-        {/* Adicionamos a classe navbar-grid-container aqui */}
-        <div className="max-w-6xl mx-auto px-4 py-4 navbar-grid-container">
-          
-          {/* 1. LADO ESQUERDO: Logo da Instituição */}
-          <div className="navbar-logo-wrapper" onClick={() => navigate('/')}>
-            <img 
-              src="/arquivos/logo.png" 
-              alt="Logo Matematicalização" 
-              className="navbar-logo"
-            />
-          </div>
-
-          {/* 2. CENTRO: Links do Menu */}
-          <div className="hidden lg:flex navbar-links-center">
-            <a href="#inicio" className="navbar-link">Início</a>
-            <a href="#sobre" className="navbar-link">Sobre</a>
-            <a href="#desafios" className="navbar-link">Educação Matemática</a>
-            <a href="#jogo" className="navbar-link">Jogo RPG</a>
-            <a href="#contato" className="navbar-link">Contatos</a>
-          </div>
-
-          {/* 3. LADO DIREITO: Botão de Login / Cadastro */}
-          <div className="hidden lg:block navbar-button-wrapper">
-            <button 
-              onClick={aoNavegarParaAuth}
-              className="navbar-btn-primary"
-            >
-              Entrar / Cadastrar ➔
-            </button>
-          </div>
-
-          {/* 4. BOTÃO HAMBÚRGUER: Celular/Tablet */}
-          <button 
-            className="mobile-menu-toggle focus:outline-none"
-            onClick={() => setMenuAberto(!menuAberto)}
-          >
-            {menuAberto ? '✕' : '☰'}
-          </button>
-        </div>
-
-        {/* 5. MENU RETRÁTIL MOBILE */}
-        {menuAberto && (
-          <div className="mobile-menu-dropdown">
-            <a href="#inicio" className="navbar-link" onClick={() => setMenuAberto(false)}>Início</a>
-            <a href="#sobre" className="navbar-link" onClick={() => setMenuAberto(false)}>Sobre</a>
-            <a href="#desafios" className="navbar-link" onClick={() => setMenuAberto(false)}>Educação Matemática</a>
-            <a href="#jogo" className="navbar-link" onClick={() => setMenuAberto(false)}>Jogo RPG</a>
-            <a href="#contato" className="navbar-link" onClick={() => setMenuAberto(false)}>Contatos</a>
-            <button 
-              onClick={() => { setMenuAberto(false); aoNavegarParaAuth(); }}
-              className="navbar-btn-mobile"
-            >
-              Entrar / Cadastrar ➔
-            </button>
-          </div>
-        )}
-      </nav>
-
       {/* 🚀 2. Seção de Boas-Vindas (Hero Section) */}
       <section id="inicio" className="pt-32 pb-20 bg-gradient-to-b from-blue-50/50 to-white px-4 text-center">
         <div className="max-w-3xl mx-auto space-y-6">

@@ -19,34 +19,33 @@ html, body {
 /* Configuração para Telas Grandes (Computador) */
 @media (min-width: 1024px) {
   .navbar-grid-container {
-    display: grid !important;
-    /* Divide a barra em 3 colunas: Esquerda (ajustável), Centro (ocupa o meio), Direita (ajustável) */
-    grid-template-columns: 1fr auto 1fr;
+    display: flex !important;
+    justify-content: center; /* Centraliza o bloco inteiro no meio da tela */
     align-items: center;
     width: 100%;
+    /* Ajusta o espaço entre os 3 blocos. 
+       Aumente ou diminua esse valor para aproximar ou afastar a logo e o botão do menu! */
+    gap: 4rem; 
   }
 
-  /* Alinha a logo estritamente à esquerda */
+  /* Remove as regras antigas de empurrar para as pontas */
   .navbar-logo-wrapper {
     display: flex;
-    justify-content: flex-start;
     cursor: pointer;
+    flex-shrink: 0; /* Impede a logo de amassar */
   }
 
-  /* Centraliza perfeitamente o menu no meio da tela */
   .navbar-links-center {
     display: flex !important;
     align-items: center;
-    gap: 2.5rem;
-    font-weight: 600;
+    gap: 2rem; /* Espaço interno entre os links (Início, Sobre...) */
+    font-weight: 700;
     font-size: 0.875rem;
-    justify-content: center;
   }
 
-  /* Alinha o botão de login estritamente à direita */
   .navbar-button-wrapper {
     display: flex !important;
-    justify-content: flex-end;
+    flex-shrink: 0; /* Impede o botão de amassar */
   }
 }
 
@@ -98,7 +97,7 @@ html, body {
 
 /* Estilização da Logo, Botões e Links permanecem iguais */
 .navbar-logo {
-  height: 40px;
+  height: 60px;
   width: auto;
   object-fit: contain;
   display: block;
@@ -117,7 +116,7 @@ html, body {
   background-color: #111827;
   color: #ffffff;
   font-weight: 700;
-  font-size: 0.75rem;
+  font-size: 1rem;
   padding: 0.625rem 1rem;
   border-radius: 0.5rem;
   transition: all 0.2s ease-in-out;
@@ -139,4 +138,75 @@ html, body {
   width: 100%;
   border: none;
   cursor: pointer;
+}
+
+
+/* ==========================================
+   👣 ESTILIZAÇÃO DO RODAPÉ (FOOTER)
+   ========================================== */
+.footer-container {
+  background-color: #1f2937; /* Cinza escuro de fundo */
+  color: #9ca3af;            /* Texto cinza claro */
+  padding-top: 3rem;
+  border-top: 1px solid #374151;
+  margin-top: 4rem;          /* Garante distância do conteúdo superior */
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  padding-bottom: 2.5rem;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-title {
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.footer-subtitle {
+  color: #f3f4f6;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.footer-text {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.footer-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-links-list a {
+  color: #9ca3af;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s ease-in-out;
+}
+
+.footer-links-list a:hover {
+  color: #ffffff; /* Fica branco ao passar o mouse */
+}
+
+.footer-bottom {
+  border-top: 1px solid #374151;
+  padding: 1.5rem 0;
+  text-align: center;
+  font-size: 0.75rem;
 }
