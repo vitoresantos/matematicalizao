@@ -39,10 +39,24 @@ export default function ConfigPartida() {
   };
 
   return (
+  
     <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+      
+      {/* ⬅️ Botão de Desistência / Sair da Configuração */}
+      <button
+        onClick={() => navigate('/')}
+        className="absolute top-6 left-6 flex items-center gap-2 text-sm text-gray-500 hover:text-gray-800 transition-colors bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm"
+      >
+        ← Cancelar e Voltar
+      </button>
+      
       <div className="mb-6 border-b pb-4">
         <h2 className="text-2xl font-bold text-gray-800">⚙️ Configuração da Atividade</h2>
         <p className="text-sm text-gray-500">Defina os parâmetros macroeconômicos e o tempo de jogo.</p>
+      </div>
+
+      <div>
+        
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-5">

@@ -48,7 +48,7 @@ export default function Auth() {
       
       // TODO INTEGRACAO: Chamar axios.post('/api/login', { email, senha })
       
-      navigate('/jogo'); // Envia para a área do jogo
+      navigate('/dashboard'); // Envia para a área do Dashboard
     } else {
       // LÓGICA DE CADASTRO SIMULADA
       const apenasNumeros = cpf.replace(/\D/g, '');
@@ -62,7 +62,7 @@ export default function Auth() {
       // TODO INTEGRACAO: Chamar axios.post('/api/cadastro', { ... })
       
       alert("Cadastro concluído com sucesso!");
-      navigate('/jogo'); // Após cadastrar, o professor entra direto no jogo
+      navigate('/dashboard'); // Após cadastrar, o professor entra no Dashboard
     }
   };
 
@@ -71,6 +71,15 @@ export default function Auth() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 p-4">
+      
+      {/* ⬅️ Botão Voltar para a Home do Site */}
+      <button
+        onClick={() => navigate('/')}
+        className="absolute top-6 left-6 flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors bg-gray-800/50 px-4 py-2 rounded-lg border border-gray-700/50 shadow-sm"
+      >
+        ← Voltar ao Início
+      </button>
+      
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8 transition-all">
         
         {/* Cabeçalho */}
