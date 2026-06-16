@@ -11,3 +11,53 @@ html, body {
 *, *:before, *:after {
   box-sizing: inherit;
 }
+
+/* ==========================================
+   🎨 SISTEMA DE CORES DO MENU (CUSTOMIZÁVEL)
+   ========================================== */
+
+/* Cor padrão dos links e comportamento ao passar o mouse */
+.navbar-link {
+  color: #4b5563; /* Cinza intermediário */
+  transition: color 0.2s ease-in-out;
+}
+.navbar-link:hover, .navbar-link.active {
+  color: #2563eb; /* Azul de destaque (Altere aqui a cor ativa/hover) */
+}
+
+/* Marca/Destaque no texto da Logo */
+.brand-highlight {
+  color: #2563eb; /* Cor do "lização" na logo */
+}
+
+/* Botão de Login/Cadastro Principal (Desktop) */
+.navbar-btn-primary {
+  background-color: #111827; /* Fundo do botão (padrão quase preto) */
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.75rem; /* text-xs */
+  padding: 0.625rem 1rem; /* py-2.5 px-4 */
+  border-radius: 0.5rem; /* rounded-lg */
+  transition: all 0.2s ease-in-out;
+  border: none;
+  cursor: pointer;
+}
+.navbar-btn-primary:hover {
+  background-color: #1f2937; /* Cor do botão no Hover */
+}
+
+/* Botão de Login dentro do Menu Mobile (Celular) */
+.navbar-btn-mobile {
+  background-color: #2563eb; /* Cor de fundo no mobile */
+  color: #ffffff;
+  padding: 0.625rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-weight: 700;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+.navbar-btn-mobile:hover {
+  background-color: #1d4ed8;
+}

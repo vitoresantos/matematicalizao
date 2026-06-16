@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 
-export default function HomeInstitucional({ aoNavegarParaOJogo }) {
+export default function HomeInstitucional() { 
   const [menuAberto, setMenuAberto] = useState(false);
+  const navigate = useNavigate(); 
+
+  const aoNavegarParaOJogo = () => {
+  navigate('/jogo');
+};
+  const aoNavegarParaAuth = () => {
+  navigate('/auth'); 
+};
 
   return (
     <div className="min-h-screen bg-white text-gray-800 font-sans scroll-smooth">
@@ -9,30 +18,35 @@ export default function HomeInstitucional({ aoNavegarParaOJogo }) {
       {/* 🧭 1. Menu de Navegação Superior (Navbar) */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-          {/* Logo da Instituição */}
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">📐</span>
-            <span className="font-black text-xl tracking-tight text-gray-900">
-              Matematica<span className="text-blue-600">lização</span>
-            </span>
+          
+          {/* Lado Esquerdo: Logo + Links do Menu juntos (Alinhados ao lado da logo) */}
+          <div className="flex items-center gap-12">
+            {/* LOGO DA INSTITUIÇÃO (AGORA COMO IMAGEM) */}
+            <div className="flex items-center select-none cursor-pointer" onClick={() => navigate('/')}>
+              <img 
+                src="/logo.png" 
+                alt="Logo Matematicalização" 
+                className="navbar-logo"
+              />
+            </div>
+
+            {/* Links para Desktop (Ficam logo ao lado da logo) */}
+            <div className="hidden md:flex items-center gap-8 font-semibold text-sm">
+              <a href="#inicio" className="navbar-link">Início</a>
+              <a href="#sobre" className="navbar-link">Sobre</a>
+              <a href="#desafios" className="navbar-link">Educação Matemática</a>
+              <a href="#jogo" className="navbar-link">Jogo RPG</a>
+              <a href="#contato" className="navbar-link">Contatos</a>
+            </div>
           </div>
 
-          {/* Links para Desktop */}
-          <div className="hidden md:flex items-center gap-8 font-semibold text-sm text-gray-600">
-            <a href="#inicio" className="hover:text-blue-600 transition-colors">Início</a>
-            <a href="#sobre" className="hover:text-blue-600 transition-colors">Sobre</a>
-            <a href="#desafios" className="hover:text-blue-600 transition-colors">Educação Matemática</a>
-            <a href="#jogo" className="hover:text-blue-600 transition-colors">Jogo RPG</a>
-            <a href="#contato" className="hover:text-blue-600 transition-colors">Contatos</a>
-          </div>
-
-          {/* Botão de Ação Rápida */}
+          {/* Lado Direito: Botão de Login / Cadastro */}
           <div className="hidden md:block">
             <button 
-              onClick={aoNavegarParaOJogo}
-              className="bg-gray-900 hover:bg-gray-800 text-white font-bold text-xs px-4 py-2.5 rounded-lg transition-all"
+              onClick={aoNavegarParaAuth}
+              className="navbar-btn-primary"
             >
-              Acessar o Jogo ➔
+              Entrar / Cadastrar ➔
             </button>
           </div>
 
@@ -48,16 +62,16 @@ export default function HomeInstitucional({ aoNavegarParaOJogo }) {
         {/* Menu Retrátil Mobile */}
         {menuAberto && (
           <div className="md:hidden bg-white border-b border-gray-100 px-6 py-4 flex flex-col gap-4 font-semibold text-sm shadow-inner">
-            <a href="#inicio" onClick={() => setMenuAberto(false)}>Início</a>
-            <a href="#sobre" onClick={() => setMenuAberto(false)}>Sobre</a>
-            <a href="#desafios" onClick={() => setMenuAberto(false)}>Educação Matemática</a>
-            <a href="#jogo" onClick={() => setMenuAberto(false)}>Jogo RPG</a>
-            <a href="#contato" onClick={() => setMenuAberto(false)}>Contatos</a>
+            <a href="#inicio" className="navbar-link" onClick={() => setMenuAberto(false)}>Início</a>
+            <a href="#sobre" className="navbar-link" onClick={() => setMenuAberto(false)}>Sobre</a>
+            <a href="#desafios" className="navbar-link" onClick={() => setMenuAberto(false)}>Educação Matemática</a>
+            <a href="#jogo" className="navbar-link" onClick={() => setMenuAberto(false)}>Jogo RPG</a>
+            <a href="#contato" className="navbar-link" onClick={() => setMenuAberto(false)}>Contatos</a>
             <button 
-              onClick={() => { setMenuAberto(false); aoNavegarParaOJogo(); }}
-              className="w-full bg-blue-600 text-white py-2.5 rounded-lg text-center font-bold"
+              onClick={() => { setMenuAberto(false); aoNavegarParaAuth(); }}
+              className="navbar-btn-mobile"
             >
-              Acessar o Jogo ➔
+              Entrar / Cadastrar ➔
             </button>
           </div>
         )}
