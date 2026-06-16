@@ -19,28 +19,25 @@ export default function HomeInstitucional() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center w-full">
           
-          {/* Lado Esquerdo: Logo + Links do Menu alinhados lado a lado */}
-          <div className="navbar-left-side">
-            {/* Logo da Instituição */}
-            <div className="flex items-center select-none cursor-pointer" onClick={() => navigate('/')}>
-              <img 
-                src="/arquivos/logo.png" 
-                alt="Logo Matematicalização" 
-                className="navbar-logo"
-              />
-            </div>
-
-            {/* Links para Desktop (Aparecem apenas no PC e usam o espaçamento do CSS) */}
-            <div className="hidden lg:flex navbar-links-container">
-              <a href="#inicio" className="navbar-link">Início</a>
-              <a href="#sobre" className="navbar-link">Sobre</a>
-              <a href="#desafios" className="navbar-link">Educação Matemática</a>
-              <a href="#jogo" className="navbar-link">Jogo RPG</a>
-              <a href="#contato" className="navbar-link">Contatos</a>
-            </div>
+          {/* 1. LADO ESQUERDO: Logo da Instituição */}
+          <div className="flex items-center select-none cursor-pointer" onClick={() => navigate('/')}>
+            <img 
+              src="/arquivos/logo.png" 
+              alt="Logo Matematicalização" 
+              className="navbar-logo"
+            />
           </div>
 
-          {/* Lado Direito: Botão de Login / Cadastro (Apenas para PC) */}
+          {/* 2. CENTRO: Links do Menu (Fica exatamente no meio da tela no PC) */}
+          <div className="hidden lg:flex navbar-links-center">
+            <a href="#inicio" className="navbar-link">Início</a>
+            <a href="#sobre" className="navbar-link">Sobre</a>
+            <a href="#desafios" className="navbar-link">Educação Matemática</a>
+            <a href="#jogo" className="navbar-link">Jogo RPG</a>
+            <a href="#contato" className="navbar-link">Contatos</a>
+          </div>
+
+          {/* 3. LADO DIREITO: Botão de Login / Cadastro */}
           <div className="hidden lg:block">
             <button 
               onClick={aoNavegarParaAuth}
@@ -50,18 +47,18 @@ export default function HomeInstitucional() {
             </button>
           </div>
 
-          {/* Hambúrguer Menu (Aparece apenas em telas de Celular/Tablet) */}
+          {/* 4. BOTÃO HAMBÚRGUER: Aparece APENAS no celular/tablet */}
           <button 
-            className="lg:hidden text-2xl focus:outline-none"
+            className="mobile-menu-toggle focus:outline-none"
             onClick={() => setMenuAberto(!menuAberto)}
           >
             {menuAberto ? '✕' : '☰'}
           </button>
         </div>
 
-        {/* Menu Retrátil Mobile (Aparece apenas no celular quando aberto) */}
+        {/* 5. MENU RETRÁTIL MOBILE: Abre apenas no celular se clicado */}
         {menuAberto && (
-          <div className="lg:hidden bg-white border-b border-gray-100 px-6 py-4 flex flex-col gap-4 font-semibold text-sm shadow-inner">
+          <div className="mobile-menu-dropdown">
             <a href="#inicio" className="navbar-link" onClick={() => setMenuAberto(false)}>Início</a>
             <a href="#sobre" className="navbar-link" onClick={() => setMenuAberto(false)}>Sobre</a>
             <a href="#desafios" className="navbar-link" onClick={() => setMenuAberto(false)}>Educação Matemática</a>
